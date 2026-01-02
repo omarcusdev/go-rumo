@@ -64,6 +64,7 @@ body {
   padding-left: 72px;
   border-bottom: 1px solid var(--border-light);
   position: relative;
+  -webkit-app-region: drag;
 }
 
 .native-traffic-light-spacer {
@@ -73,12 +74,6 @@ body {
   width: 72px;
   height: 100%;
   pointer-events: none;
-}
-
-.drag-region {
-  flex: 1;
-  height: 100%;
-  -webkit-app-region: drag;
 }
 
 .pin-button {
@@ -94,6 +89,7 @@ body {
   justify-content: center;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  margin-left: auto;
   -webkit-app-region: no-drag;
 }
 
@@ -109,43 +105,6 @@ body {
 
 .pin-button.pinned:hover {
   background: rgba(40, 200, 64, 0.25);
-}
-
-.focused-task {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: rgba(var(--mode-color-rgb), 0.04);
-  border-bottom: 1px solid var(--border-light);
-}
-
-.focus-icon {
-  font-size: 11px;
-}
-
-.focus-text {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-primary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.focus-status {
-  display: flex;
-  align-items: center;
-  color: var(--mode-color);
-}
-
-.focus-status .spinner {
-  animation: spin 1s linear infinite;
-}
-
-.focus-status.completed {
-  color: #28c840;
 }
 
 .timer-section {
@@ -281,26 +240,120 @@ body {
   color: var(--text-muted);
 }
 
-.todo-list {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 8px;
+.active-tasks {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
+  margin-bottom: 10px;
+  min-height: 44px;
 }
 
-.todo-list::-webkit-scrollbar {
+.empty-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px dashed var(--border-light);
+}
+
+.empty-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.empty-hint {
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.todo-sections {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  min-height: 60px;
+}
+
+.todo-sections::-webkit-scrollbar {
   width: 2px;
 }
 
-.todo-list::-webkit-scrollbar-track {
+.todo-sections::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.todo-list::-webkit-scrollbar-thumb {
+.todo-sections::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 1px;
+}
+
+.collapsible-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.collapsible-header:hover {
+  background: var(--bg-card);
+}
+
+.collapsible-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.collapsible-count {
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--bg-button);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.collapsible-arrow {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.collapsible-arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+.collapsible-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 0;
 }
 
 .todo-item {
@@ -320,16 +373,18 @@ body {
   border-color: var(--border-light);
 }
 
-.todo-item.focused {
-  background: rgba(var(--mode-color-rgb), 0.06);
+.todo-item.active-task {
+  background: rgba(51, 154, 240, 0.08);
+  border-color: rgba(51, 154, 240, 0.2);
+}
+
+.todo-item.active-task:hover {
+  background: rgba(51, 154, 240, 0.12);
+  border-color: rgba(51, 154, 240, 0.3);
 }
 
 .todo-item.pending .todo-text {
   color: var(--text-primary);
-}
-
-.todo-item.in_progress {
-  background: rgba(51, 154, 240, 0.06);
 }
 
 .todo-item.in_progress .todo-text {
@@ -337,7 +392,7 @@ body {
 }
 
 .todo-item.completed {
-  opacity: 0.35;
+  opacity: 0.5;
 }
 
 .todo-item.completed .todo-text {
@@ -379,20 +434,20 @@ body {
   color: #339af0;
 }
 
-.status-icon.in-progress .spinner {
+.spinner-icon {
   width: 14px;
   height: 14px;
   animation: spin 1s linear infinite;
-}
-
-.status-icon.completed {
-  color: #51cf66;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+.status-icon.completed {
+  color: #51cf66;
 }
 
 .todo-text {

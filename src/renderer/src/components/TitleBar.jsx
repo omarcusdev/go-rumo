@@ -22,7 +22,6 @@ const TitleBar = () => {
   return (
     <div className="title-bar">
       <div className="native-traffic-light-spacer" />
-      <div className="drag-region" />
       <button
         className={`pin-button ${isPinned ? 'pinned' : ''}`}
         onClick={handleTogglePin}

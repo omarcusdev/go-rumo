@@ -1,7 +1,13 @@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification, nativeImage } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+
+const getIconPath = () => {
+  if (is.dev) {
+    return join(process.cwd(), 'resources/icon.png')
+  }
+  return join(__dirname, '../../resources/icon.png')
+}
 
 let store = null
 let mainWindow = null
@@ -64,7 +70,10 @@ const createWindow = () => {
 }
 
 const createTray = () => {
-  const trayIcon = nativeImage.createFromPath(icon).resize({ width: 16, height: 16 })
+  const iconPath = getIconPath()
+  console.log('Tray icon path:', iconPath)
+  const trayIcon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
+  console.log('Tray icon empty?', trayIcon.isEmpty())
   tray = new Tray(trayIcon)
 
   const contextMenu = Menu.buildFromTemplate([
@@ -134,6 +143,10 @@ const setupIPC = () => {
 
   ipcMain.on('save-focused-todo-id', (_, id) => {
     store?.set('focusedTodoId', id)
+  })
+
+  ipcMain.on('update-tray-title', (_, time) => {
+    tray?.setTitle(time)
   })
 }
 

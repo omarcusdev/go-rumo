@@ -6,6 +6,8 @@ const STATUS = {
   COMPLETED: 'completed'
 }
 
+const MAX_IN_PROGRESS = 3
+
 const getNextStatus = (currentStatus) => {
   const flow = {
     [STATUS.PENDING]: STATUS.IN_PROGRESS,
@@ -72,38 +74,36 @@ const useTodos = () => {
   }, [])
 
   const advanceStatus = useCallback((id) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, status: getNextStatus(todo.status) } : todo
+    setTodos((prev) => {
+      const todo = prev.find((t) => t.id === id)
+      if (!todo) return prev
+
+      const currentInProgressCount = prev.filter((t) => t.status === STATUS.IN_PROGRESS).length
+      const wouldBecomeInProgress = todo.status === STATUS.PENDING
+
+      if (wouldBecomeInProgress && currentInProgressCount >= MAX_IN_PROGRESS) {
+        return prev
+      }
+
+      return prev.map((t) =>
+        t.id === id ? { ...t, status: getNextStatus(t.status) } : t
       )
-    )
+    })
   }, [])
 
   const setFocusedTodo = useCallback((id) => {
     setFocusedTodoId((prev) => (prev === id ? null : id))
   }, [])
 
-  const focusedTodo = useMemo(
-    () => todos.find((todo) => todo.id === focusedTodoId),
-    [todos, focusedTodoId]
-  )
-
   const completedCount = useMemo(
     () => todos.filter((todo) => todo.status === STATUS.COMPLETED).length,
     [todos]
   )
 
-  const inProgressCount = useMemo(
-    () => todos.filter((todo) => todo.status === STATUS.IN_PROGRESS).length,
-    [todos]
-  )
-
   return {
     todos,
-    focusedTodo,
     focusedTodoId,
     completedCount,
-    inProgressCount,
     totalCount: todos.length,
     addTodo,
     deleteTodo,

@@ -113,6 +113,10 @@ const useTimer = () => {
     }
   }, [timeLeft, handleTimerComplete])
 
+  useEffect(() => {
+    window.api?.updateTrayTitle(formatTime(timeLeft))
+  }, [timeLeft, formatTime])
+
   const toggle = useCallback(() => {
     setIsRunning((prev) => !prev)
   }, [])
