@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 
 const MODES = {
-  focus: { duration: 25 * 60, label: 'Foco', color: '#e74c3c' },
+  focus: { duration: 25 * 60, label: 'Rumo 🚀', color: '#e74c3c' },
   shortBreak: { duration: 5 * 60, label: 'Pausa curta', color: '#27ae60' },
   longBreak: { duration: 15 * 60, label: 'Pausa longa', color: '#3498db' }
 }

@@ -21,9 +21,9 @@ const initStore = async () => {
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 320,
-    height: 500,
+    height: 580,
     minWidth: 280,
-    minHeight: 400,
+    minHeight: 520,
     show: false,
     frame: false,
     transparent: true,
@@ -147,6 +147,14 @@ const setupIPC = () => {
 
   ipcMain.on('update-tray-title', (_, time) => {
     tray?.setTitle(time)
+  })
+
+  ipcMain.handle('get-window-opacity', () => {
+    return store?.get('windowOpacity', 0.12) ?? 0.12
+  })
+
+  ipcMain.on('set-window-opacity', (_, value) => {
+    store?.set('windowOpacity', value)
   })
 }
 

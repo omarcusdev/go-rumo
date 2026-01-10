@@ -7,8 +7,9 @@
 :root {
   --mode-color: #10b981;
   --mode-color-rgb: 16, 185, 129;
+  --bg-opacity: 0.12;
 
-  --bg-primary: rgba(30, 30, 35, 0.12);
+  --bg-primary: rgba(30, 30, 35, var(--bg-opacity));
   --bg-card: rgba(255, 255, 255, 0.02);
   --bg-card-hover: rgba(255, 255, 255, 0.05);
   --bg-button: rgba(255, 255, 255, 0.06);
@@ -57,6 +58,21 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
+.section-glow {
+  position: absolute;
+  inset: -50px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    600px 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--glow-color),
+    transparent 70%
+  );
+  filter: blur(15px);
+  transition: background 0.15s ease-out;
+}
+
+
 .title-bar {
   display: flex;
   align-items: center;
@@ -89,8 +105,14 @@ body {
   justify-content: center;
   transition: all 0.2s ease;
   flex-shrink: 0;
-  margin-left: auto;
   -webkit-app-region: no-drag;
+}
+
+.title-bar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
 }
 
 .pin-button:hover {
@@ -111,8 +133,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 16px 20px;
+  padding: 16px 16px 12px;
   border-bottom: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+  --glow-color: rgba(16, 185, 129, 0.12);
 }
 
 .mode-badge {
@@ -122,7 +147,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background: rgba(var(--mode-color-rgb), 0.1);
   color: var(--mode-color);
 }
@@ -131,7 +156,7 @@ body {
   font-size: 72px;
   font-weight: 200;
   font-variant-numeric: tabular-nums;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   letter-spacing: -2px;
   color: var(--text-primary);
 }
@@ -143,7 +168,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 1px;
   overflow: hidden;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .progress-bar {
@@ -158,7 +183,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 32px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .control-btn {
@@ -216,12 +241,38 @@ body {
   background: var(--mode-color);
 }
 
+.motivational-quote {
+  padding: 8px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+  --glow-color: rgba(168, 85, 247, 0.12);
+}
+
+.quote-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+.quote-artist {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
 .todo-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 12px;
   overflow: hidden;
+  position: relative;
+  --glow-color: rgba(59, 130, 246, 0.12);
 }
 
 .todo-header {
@@ -229,14 +280,14 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
 }
 
 .todo-count {
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -260,13 +311,13 @@ body {
 }
 
 .empty-text {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
   margin-bottom: 2px;
 }
 
 .empty-hint {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
@@ -317,7 +368,7 @@ body {
 }
 
 .collapsible-title {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -325,7 +376,7 @@ body {
 }
 
 .collapsible-count {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
   background: var(--bg-button);
   padding: 2px 6px;
@@ -359,12 +410,12 @@ body {
 .todo-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
+  gap: 10px;
+  padding: 10px 12px;
   border-radius: var(--radius-sm);
   background: var(--bg-card);
   border: 1px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   cursor: default;
 }
 
@@ -372,6 +423,7 @@ body {
   background: var(--bg-card-hover);
   border-color: var(--border-light);
 }
+
 
 .todo-item.active-task {
   background: rgba(51, 154, 240, 0.08);
@@ -404,8 +456,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background: none;
   border: none;
   cursor: pointer;
@@ -422,7 +474,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1;
 }
 
@@ -452,7 +504,7 @@ body {
 
 .todo-text {
   flex: 1;
-  font-size: 12px;
+  font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -495,12 +547,12 @@ body {
 
 .todo-input {
   flex: 1;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: none;
   border-radius: var(--radius-sm);
   background: var(--bg-card);
   color: var(--text-primary);
-  font-size: 12px;
+  font-size: 14px;
   outline: none;
   transition: all 0.2s ease;
 }
@@ -514,8 +566,8 @@ body {
 }
 
 .add-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: var(--radius-sm);
   background: var(--mode-color);
@@ -529,8 +581,8 @@ body {
 }
 
 .add-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .add-btn:hover {
@@ -539,4 +591,149 @@ body {
 
 .add-btn:active {
   transform: scale(0.95);
+}
+
+.settings-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  -webkit-app-region: no-drag;
+}
+
+.settings-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.settings-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: var(--radius);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.settings-panel {
+  width: 260px;
+  background: rgba(40, 40, 45, 0.95);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.settings-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.settings-close {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.settings-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.settings-content {
+  padding: 14px;
+}
+
+.settings-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settings-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.opacity-select {
+  background: var(--bg-button);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 11px;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.opacity-select:hover {
+  background: var(--bg-button-hover);
+  border-color: var(--border-color);
+}
+
+.opacity-select:focus {
+  border-color: var(--mode-color);
+}
+
+.opacity-select option {
+  background: rgb(40, 40, 45);
+  color: var(--text-primary);
 }

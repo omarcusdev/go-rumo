@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import useTimer from '../hooks/useTimer'
+import useMouseGlow from '../hooks/useMouseGlow'
 
 const MODE_COLORS = {
   focus: { color: '#10b981', rgb: '16, 185, 129' },
@@ -29,6 +30,7 @@ const Timer = () => {
     skipToNext,
     cyclesInCurrentSet
   } = useTimer()
+  const glowRef = useMouseGlow()
 
   useEffect(() => {
     const modeColor = MODE_COLORS[mode] || MODE_COLORS.focus
@@ -37,7 +39,8 @@ const Timer = () => {
   }, [mode])
 
   return (
-    <div className="timer-section">
+    <div className="timer-section" ref={glowRef}>
+      <div className="section-glow" />
       <div className="mode-badge">
         {currentMode.label}
       </div>

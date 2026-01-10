@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useMouseGlow from '../hooks/useMouseGlow'
 
 const SpinnerIcon = () => (
   <svg className="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -62,6 +63,7 @@ const TodoList = ({
   const [newTodoText, setNewTodoText] = useState('')
   const [showPending, setShowPending] = useState(false)
   const [showCompleted, setShowCompleted] = useState(false)
+  const glowRef = useMouseGlow()
 
   const activeTodos = todos.filter((todo) => todo.status === 'in_progress')
   const pendingTodos = todos.filter((todo) => todo.status === 'pending')
@@ -74,7 +76,8 @@ const TodoList = ({
   }
 
   return (
-    <div className="todo-section">
+    <div className="todo-section" ref={glowRef}>
+      <div className="section-glow" />
       <div className="todo-header">
         <span>Tarefas</span>
         <span className="todo-count">
