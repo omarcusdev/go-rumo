@@ -12,7 +12,9 @@ const api = {
   saveFocusedTodoId: (id) => ipcRenderer.send('save-focused-todo-id', id),
   updateTrayTitle: (time) => ipcRenderer.send('update-tray-title', time),
   getWindowOpacity: () => ipcRenderer.invoke('get-window-opacity'),
-  setWindowOpacity: (value) => ipcRenderer.send('set-window-opacity', value)
+  setWindowOpacity: (value) => ipcRenderer.send('set-window-opacity', value),
+  getRumos: () => ipcRenderer.invoke('get-rumos'),
+  saveRumo: (rumo) => ipcRenderer.send('save-rumo', rumo)
 }
 
 if (process.contextIsolated) {

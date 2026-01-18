@@ -54,7 +54,7 @@ const MotivationalQuote = () => {
   return (
     <div className="motivational-quote" ref={glowRef}>
       <div className="section-glow" />
-      <span className="quote-text">"{quote.text}"</span>
+      <span className="quote-text">&quot;{quote.text}&quot;</span>
       <span className="quote-artist"> — {quote.artist}</span>
     </div>
   )

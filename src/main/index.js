@@ -126,7 +126,9 @@ const setupIPC = () => {
   })
 
   ipcMain.on('show-notification', (_, title, body) => {
-    new Notification({ title, body }).show()
+    const iconPath = getIconPath()
+    const icon = nativeImage.createFromPath(iconPath)
+    new Notification({ title, body, icon }).show()
   })
 
   ipcMain.handle('get-todos', () => {
@@ -156,9 +158,19 @@ const setupIPC = () => {
   ipcMain.on('set-window-opacity', (_, value) => {
     store?.set('windowOpacity', value)
   })
+
+  ipcMain.handle('get-rumos', () => {
+    return store?.get('rumos', []) ?? []
+  })
+
+  ipcMain.on('save-rumo', (_, rumo) => {
+    const rumos = store?.get('rumos', []) ?? []
+    store?.set('rumos', [...rumos, rumo])
+  })
 }
 
 app.whenReady().then(async () => {
+  app.name = 'Go Rumo'
   electronApp.setAppUserModelId('com.gorumo.app')
 
   app.on('browser-window-created', (_, window) => {

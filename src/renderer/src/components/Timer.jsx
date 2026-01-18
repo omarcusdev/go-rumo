@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import useTimer from '../hooks/useTimer'
 import useMouseGlow from '../hooks/useMouseGlow'
 
 const MODE_COLORS = {
@@ -18,18 +17,16 @@ const CycleDots = ({ completed, total = 4 }) => {
   )
 }
 
-const Timer = () => {
-  const {
-    mode,
-    currentMode,
-    formattedTime,
-    isRunning,
-    progress,
-    toggle,
-    reset,
-    skipToNext,
-    cyclesInCurrentSet
-  } = useTimer()
+const Timer = ({
+  mode,
+  currentMode,
+  formattedTime,
+  isRunning,
+  progress,
+  toggle,
+  reset,
+  cyclesInCurrentSet
+}) => {
   const glowRef = useMouseGlow()
 
   useEffect(() => {
@@ -79,12 +76,6 @@ const Timer = () => {
               <path d="M8 5V19L19 12L8 5Z" fill="currentColor" />
             </svg>
           )}
-        </button>
-        <button className="control-btn" onClick={skipToNext} title="Pular">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polygon points="5 4 15 12 5 20 5 4" fill="currentColor" />
-            <line x1="19" y1="5" x2="19" y2="19" strokeLinecap="round" />
-          </svg>
         </button>
       </div>
 

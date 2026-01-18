@@ -1,21 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 
 const STATUS = {
-  PENDING: 'pending',
   IN_PROGRESS: 'in_progress',
   COMPLETED: 'completed'
 }
 
-const MAX_IN_PROGRESS = 3
-
-const getNextStatus = (currentStatus) => {
-  const flow = {
-    [STATUS.PENDING]: STATUS.IN_PROGRESS,
-    [STATUS.IN_PROGRESS]: STATUS.COMPLETED,
-    [STATUS.COMPLETED]: STATUS.PENDING
-  }
-  return flow[currentStatus] || STATUS.PENDING
-}
+const getNextStatus = (currentStatus) =>
+  currentStatus === STATUS.IN_PROGRESS ? STATUS.COMPLETED : STATUS.IN_PROGRESS
 
 const useTodos = () => {
   const [todos, setTodos] = useState([])
@@ -31,7 +22,9 @@ const useTodos = () => {
           if (savedTodos) {
             const migratedTodos = savedTodos.map((todo) => ({
               ...todo,
-              status: todo.status || (todo.completed ? STATUS.COMPLETED : STATUS.PENDING)
+              status: todo.status === 'pending' || !todo.status
+                ? (todo.completed ? STATUS.COMPLETED : STATUS.IN_PROGRESS)
+                : todo.status
             }))
             setTodos(migratedTodos)
           }
@@ -63,7 +56,7 @@ const useTodos = () => {
     const newTodo = {
       id: crypto.randomUUID(),
       text: text.trim(),
-      status: STATUS.PENDING
+      status: STATUS.IN_PROGRESS
     }
     setTodos((prev) => [...prev, newTodo])
   }, [])
@@ -74,25 +67,19 @@ const useTodos = () => {
   }, [])
 
   const advanceStatus = useCallback((id) => {
-    setTodos((prev) => {
-      const todo = prev.find((t) => t.id === id)
-      if (!todo) return prev
-
-      const currentInProgressCount = prev.filter((t) => t.status === STATUS.IN_PROGRESS).length
-      const wouldBecomeInProgress = todo.status === STATUS.PENDING
-
-      if (wouldBecomeInProgress && currentInProgressCount >= MAX_IN_PROGRESS) {
-        return prev
-      }
-
-      return prev.map((t) =>
+    setTodos((prev) =>
+      prev.map((t) =>
         t.id === id ? { ...t, status: getNextStatus(t.status) } : t
       )
-    })
+    )
   }, [])
 
   const setFocusedTodo = useCallback((id) => {
     setFocusedTodoId((prev) => (prev === id ? null : id))
+  }, [])
+
+  const clearCompleted = useCallback(() => {
+    setTodos((prev) => prev.filter((todo) => todo.status !== STATUS.COMPLETED))
   }, [])
 
   const completedCount = useMemo(
@@ -109,6 +96,7 @@ const useTodos = () => {
     deleteTodo,
     advanceStatus,
     setFocusedTodo,
+    clearCompleted,
     STATUS
   }
 }

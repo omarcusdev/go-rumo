@@ -61,6 +61,11 @@ const useTimer = () => {
       const newCycles = completedCycles + 1
       setCompletedCycles(newCycles)
 
+      window.api?.saveRumo({
+        id: crypto.randomUUID(),
+        timestamp: Date.now()
+      })
+
       if (newCycles % CYCLES_BEFORE_LONG_BREAK === 0) {
         setMode('longBreak')
         setTimeLeft(MODES.longBreak.duration)
@@ -132,10 +137,6 @@ const useTimer = () => {
     setTimeLeft(MODES[newMode].duration)
   }, [])
 
-  const skipToNext = useCallback(() => {
-    setTimeLeft(0)
-  }, [])
-
   return {
     mode,
     timeLeft,
@@ -147,7 +148,6 @@ const useTimer = () => {
     toggle,
     reset,
     switchMode,
-    skipToNext,
     cyclesInCurrentSet: completedCycles % CYCLES_BEFORE_LONG_BREAK
   }
 }

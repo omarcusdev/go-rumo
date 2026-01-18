@@ -69,6 +69,16 @@ const Settings = ({ isOpen, onClose }) => {
             </div>
           </div>
         </div>
+        <div className="settings-footer">
+          <a
+            href="https://github.com/omarcusdev/go-rumo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="settings-link"
+          >
+            v1.0.0
+          </a>
+        </div>
       </div>
     </div>
   )
