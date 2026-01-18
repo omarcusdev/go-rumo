@@ -27,10 +27,9 @@
 
 ## Screenshots
 
-<!-- Adicione seus screenshots aqui -->
-<!-- ![Screenshot](./screenshots/main.png) -->
-
-*Em breve*
+<p align="center">
+  <img src="./assets/screenshots/showcase.svg" alt="Go Rumo - Timer e Estatísticas" width="100%"/>
+</p>
 
 ---
 

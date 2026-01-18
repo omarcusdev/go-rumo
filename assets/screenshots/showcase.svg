@@ -1,0 +1,217 @@
+<svg width="900" height="550" viewBox="0 0 900 550" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradientes -->
+    <linearGradient id="mainBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="50%" style="stop-color:#161b22"/>
+      <stop offset="100%" style="stop-color:#0d1117"/>
+    </linearGradient>
+
+    <linearGradient id="appBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+
+    <linearGradient id="statsBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d3a"/>
+      <stop offset="100%" style="stop-color:#1f1f2e"/>
+    </linearGradient>
+
+    <linearGradient id="glass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.04"/>
+    </linearGradient>
+
+    <linearGradient id="greenBar" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#27ae60"/>
+      <stop offset="100%" style="stop-color:#2ecc71"/>
+    </linearGradient>
+
+    <linearGradient id="progressGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2ecc71"/>
+      <stop offset="100%" style="stop-color:#27ae60"/>
+    </linearGradient>
+
+    <!-- Sombras -->
+    <filter id="bigShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <filter id="smallShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fundo principal -->
+  <rect width="900" height="550" fill="url(#mainBg)"/>
+
+  <!-- Efeitos de luz decorativos -->
+  <ellipse cx="200" cy="100" rx="200" ry="150" fill="#2ecc71" opacity="0.03" filter="url(#glow)"/>
+  <ellipse cx="700" cy="450" rx="180" ry="130" fill="#27ae60" opacity="0.03" filter="url(#glow)"/>
+
+  <!-- ===== JANELA TIMER (Principal, maior, à esquerda) ===== -->
+  <g transform="translate(80, 30)" filter="url(#bigShadow)">
+    <!-- Fundo da janela -->
+    <rect width="300" height="490" rx="14" fill="url(#appBg)"/>
+    <rect width="300" height="490" rx="14" fill="url(#glass)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+    <!-- Barra de título -->
+    <rect width="300" height="38" rx="14" fill="rgba(0,0,0,0.25)"/>
+    <rect y="14" width="300" height="24" fill="rgba(0,0,0,0.25)"/>
+    <circle cx="20" cy="19" r="5" fill="#ff5f57"/>
+    <circle cx="38" cy="19" r="5" fill="#febc2e"/>
+    <circle cx="56" cy="19" r="5" fill="#28c840"/>
+
+    <!-- Toggle central -->
+    <rect x="110" y="9" width="80" height="20" rx="10" fill="rgba(255,255,255,0.08)"/>
+    <circle cx="130" cy="19" r="5" fill="rgba(255,255,255,0.5)"/>
+    <text x="162" y="23" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">🚀</text>
+
+    <!-- Ícones direita -->
+    <rect x="230" y="7" width="22" height="22" rx="4" fill="#febc2e"/>
+    <circle cx="272" cy="19" r="10" fill="rgba(255,255,255,0.08)"/>
+
+    <!-- Badge RUMO -->
+    <rect x="105" y="55" width="90" height="24" rx="12" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/>
+    <text x="150" y="71" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="#2ecc71" text-anchor="middle" font-weight="600">RUMO 🚀</text>
+
+    <!-- Timer -->
+    <text x="150" y="145" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="64" fill="#ffffff" text-anchor="middle" font-weight="300">18:05</text>
+
+    <!-- Barra de progresso -->
+    <rect x="50" y="165" width="200" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+    <rect x="50" y="165" width="150" height="4" rx="2" fill="url(#progressGreen)"/>
+
+    <!-- Botões de controle -->
+    <circle cx="100" cy="210" r="20" fill="rgba(255,255,255,0.08)"/>
+    <path transform="translate(90, 200)" d="M4 10 A7 7 0 1 1 10 4" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+
+    <circle cx="200" cy="210" r="26" fill="rgba(255,255,255,0.12)"/>
+    <rect x="190" y="196" width="6" height="26" rx="2" fill="#ffffff"/>
+    <rect x="204" y="196" width="6" height="26" rx="2" fill="#ffffff"/>
+
+    <!-- Dots -->
+    <circle cx="130" cy="255" r="3" fill="rgba(255,255,255,0.25)"/>
+    <circle cx="145" cy="255" r="3" fill="#ffffff"/>
+    <circle cx="160" cy="255" r="3" fill="rgba(255,255,255,0.25)"/>
+    <circle cx="175" cy="255" r="3" fill="rgba(255,255,255,0.25)"/>
+
+    <!-- Citação -->
+    <text x="150" y="285" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-style="italic">"Na crise que eu encontro a calma"</text>
+    <text x="150" y="300" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">— Filipe Ret</text>
+
+    <!-- Seção Tarefas -->
+    <text x="20" y="330" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" font-weight="500">Tarefas</text>
+    <text x="280" y="330" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="end">0/2</text>
+
+    <!-- Tarefa 1 -->
+    <rect x="15" y="340" width="270" height="40" rx="10" fill="rgba(255,255,255,0.06)"/>
+    <circle cx="38" cy="360" r="5" stroke="#3498db" stroke-width="1.5" fill="none" stroke-dasharray="16" stroke-dashoffset="4"/>
+    <text x="55" y="364" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#ffffff">Postar App</text>
+
+    <!-- Tarefa 2 -->
+    <rect x="15" y="388" width="270" height="40" rx="10" fill="rgba(255,255,255,0.06)"/>
+    <circle cx="38" cy="408" r="5" stroke="#3498db" stroke-width="1.5" fill="none" stroke-dasharray="16" stroke-dashoffset="4"/>
+    <text x="55" y="412" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#ffffff">Zap Online: Feature Agents...</text>
+
+    <!-- Input nova tarefa -->
+    <text x="20" y="455" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="rgba(255,255,255,0.25)">Nova tarefa...</text>
+    <circle cx="268" cy="450" r="14" fill="#2ecc71"/>
+    <text x="268" y="456" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" font-weight="300">+</text>
+  </g>
+
+  <!-- ===== JANELA STATS DIÁRIO (Atrás, direita superior) ===== -->
+  <g transform="translate(420, 20)" filter="url(#smallShadow)">
+    <rect width="240" height="320" rx="12" fill="url(#statsBg)"/>
+    <rect width="240" height="320" rx="12" fill="url(#glass)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Barra de título -->
+    <rect width="240" height="32" rx="12" fill="rgba(0,0,0,0.2)"/>
+    <rect y="12" width="240" height="20" fill="rgba(0,0,0,0.2)"/>
+    <circle cx="16" cy="16" r="4" fill="#ff5f57"/>
+    <circle cx="30" cy="16" r="4" fill="#febc2e"/>
+    <circle cx="44" cy="16" r="4" fill="#28c840"/>
+
+    <!-- Tabs -->
+    <rect x="70" y="50" width="32" height="24" rx="6" fill="#2ecc71"/>
+    <text x="86" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="600">D</text>
+    <rect x="108" y="50" width="32" height="24" rx="6" fill="rgba(255,255,255,0.06)"/>
+    <text x="124" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">S</text>
+    <rect x="146" y="50" width="32" height="24" rx="6" fill="rgba(255,255,255,0.06)"/>
+    <text x="162" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">M</text>
+
+    <!-- Data -->
+    <text x="120" y="100" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">18 janeiro 2026 - 4 rumos</text>
+
+    <!-- Gráfico -->
+    <line x1="30" y1="280" x2="220" y2="280" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="30" y1="230" x2="220" y2="230" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <line x1="30" y1="180" x2="220" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+    <!-- Barras do gráfico -->
+    <rect x="45" y="220" width="12" height="60" rx="3" fill="url(#greenBar)"/>
+    <rect x="62" y="220" width="12" height="60" rx="3" fill="url(#greenBar)"/>
+
+    <!-- Labels eixo X -->
+    <text x="55" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">5</text>
+    <text x="105" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">10</text>
+    <text x="155" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">15</text>
+    <text x="205" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">20</text>
+  </g>
+
+  <!-- ===== JANELA STATS SEMANAL (Atrás, direita inferior) ===== -->
+  <g transform="translate(520, 200)" filter="url(#smallShadow)">
+    <rect width="240" height="320" rx="12" fill="url(#statsBg)"/>
+    <rect width="240" height="320" rx="12" fill="url(#glass)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Barra de título -->
+    <rect width="240" height="32" rx="12" fill="rgba(0,0,0,0.2)"/>
+    <rect y="12" width="240" height="20" fill="rgba(0,0,0,0.2)"/>
+    <circle cx="16" cy="16" r="4" fill="#ff5f57"/>
+    <circle cx="30" cy="16" r="4" fill="#febc2e"/>
+    <circle cx="44" cy="16" r="4" fill="#28c840"/>
+
+    <!-- Tabs -->
+    <rect x="70" y="50" width="32" height="24" rx="6" fill="rgba(255,255,255,0.06)"/>
+    <text x="86" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">D</text>
+    <rect x="108" y="50" width="32" height="24" rx="6" fill="#2ecc71"/>
+    <text x="124" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="600">S</text>
+    <rect x="146" y="50" width="32" height="24" rx="6" fill="rgba(255,255,255,0.06)"/>
+    <text x="162" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">M</text>
+
+    <!-- Data -->
+    <text x="120" y="100" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">semana de 18 janeiro - 4 rumos</text>
+
+    <!-- Gráfico -->
+    <line x1="30" y1="280" x2="220" y2="280" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="30" y1="230" x2="220" y2="230" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <line x1="30" y1="180" x2="220" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+    <!-- Barra do gráfico (domingo) -->
+    <rect x="35" y="200" width="18" height="80" rx="3" fill="url(#greenBar)"/>
+
+    <!-- Labels eixo X (dias da semana) -->
+    <text x="44" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">D</text>
+    <text x="74" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">S</text>
+    <text x="104" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">T</text>
+    <text x="134" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">Q</text>
+    <text x="164" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">Q</text>
+    <text x="194" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">S</text>
+    <text x="220" y="298" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">S</text>
+  </g>
+
+  <!-- Decoração: pontos de luz -->
+  <circle cx="50" cy="80" r="2" fill="#2ecc71" opacity="0.5"/>
+  <circle cx="850" cy="100" r="1.5" fill="#2ecc71" opacity="0.4"/>
+  <circle cx="800" cy="480" r="2" fill="#27ae60" opacity="0.4"/>
+  <circle cx="420" cy="520" r="1" fill="#ffffff" opacity="0.2"/>
+</svg>

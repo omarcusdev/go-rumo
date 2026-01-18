@@ -1,0 +1,120 @@
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradiente de fundo -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+
+    <!-- Glassmorphism -->
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.04"/>
+    </linearGradient>
+
+    <!-- Gradiente verde -->
+    <linearGradient id="barGreen" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#27ae60"/>
+      <stop offset="100%" style="stop-color:#2ecc71"/>
+    </linearGradient>
+
+    <!-- Sombra -->
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo externo -->
+  <rect width="400" height="500" fill="#0d1117"/>
+
+  <!-- Card da janela -->
+  <g filter="url(#cardShadow)">
+    <rect x="40" y="30" width="320" height="440" rx="16" fill="#2d2d3a"/>
+    <rect x="40" y="30" width="320" height="440" rx="16" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  </g>
+
+  <!-- Barra de título -->
+  <g transform="translate(40, 30)">
+    <rect width="320" height="44" rx="16" fill="rgba(0,0,0,0.2)"/>
+    <rect y="16" width="320" height="28" fill="rgba(0,0,0,0.2)"/>
+
+    <!-- Botões semáforo -->
+    <circle cx="24" cy="22" r="6" fill="#ff5f57"/>
+    <circle cx="44" cy="22" r="6" fill="#febc2e"/>
+    <circle cx="64" cy="22" r="6" fill="#28c840"/>
+
+    <!-- Toggle central -->
+    <g transform="translate(120, 12)">
+      <rect width="80" height="20" rx="10" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="20" cy="10" r="6" fill="rgba(255,255,255,0.5)"/>
+      <text x="52" y="14" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">🚀</text>
+    </g>
+
+    <!-- Ícones direita -->
+    <rect x="250" y="10" width="24" height="24" rx="4" fill="#febc2e"/>
+    <circle cx="292" cy="22" r="12" fill="rgba(255,255,255,0.08)"/>
+  </g>
+
+  <!-- Tabs D S M A -->
+  <g transform="translate(100, 95)">
+    <!-- Tab D (ativo) -->
+    <rect x="0" y="0" width="40" height="32" rx="8" fill="#2ecc71"/>
+    <text x="20" y="21" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="600">D</text>
+
+    <!-- Tab S -->
+    <rect x="50" y="0" width="40" height="32" rx="8" fill="rgba(255,255,255,0.08)"/>
+    <text x="70" y="21" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">S</text>
+
+    <!-- Tab M -->
+    <rect x="100" y="0" width="40" height="32" rx="8" fill="rgba(255,255,255,0.08)"/>
+    <text x="120" y="21" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">M</text>
+
+    <!-- Tab A -->
+    <rect x="150" y="0" width="40" height="32" rx="8" fill="rgba(255,255,255,0.08)"/>
+    <text x="170" y="21" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">A</text>
+  </g>
+
+  <!-- Navegação de data -->
+  <g transform="translate(60, 150)">
+    <!-- Seta esquerda -->
+    <text x="0" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="rgba(255,255,255,0.4)">&lt;</text>
+
+    <!-- Data -->
+    <text x="140" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle">18 janeiro 2026 - 4 rumos</text>
+
+    <!-- Seta direita -->
+    <text x="275" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="rgba(255,255,255,0.4)">&gt;</text>
+  </g>
+
+  <!-- Gráfico de barras -->
+  <g transform="translate(60, 200)">
+    <!-- Área do gráfico -->
+    <rect width="280" height="180" fill="transparent"/>
+
+    <!-- Linhas de grade horizontais -->
+    <line x1="30" y1="20" x2="280" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <line x1="30" y1="60" x2="280" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <line x1="30" y1="100" x2="280" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <line x1="30" y1="140" x2="280" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <line x1="30" y1="180" x2="280" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+    <!-- Labels Y -->
+    <text x="20" y="25" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="end">20</text>
+    <text x="20" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="end">15</text>
+    <text x="20" y="105" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="end">10</text>
+    <text x="20" y="145" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="end">5</text>
+    <text x="20" y="183" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="end">0</text>
+
+    <!-- Barras -->
+    <!-- Barra 1 (hora 5) - 2 rumos -->
+    <rect x="45" y="148" width="14" height="32" rx="3" fill="url(#barGreen)"/>
+    <!-- Barra 2 (hora 5) - 2 rumos -->
+    <rect x="63" y="148" width="14" height="32" rx="3" fill="url(#barGreen)"/>
+
+    <!-- Labels X (horas) -->
+    <text x="55" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">5</text>
+    <text x="105" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">10</text>
+    <text x="155" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">15</text>
+    <text x="205" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">20</text>
+  </g>
+</svg>
