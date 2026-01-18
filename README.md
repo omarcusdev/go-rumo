@@ -1,8 +1,15 @@
-# Go Rumo
+<p align="center">
+  <img src="./assets/header.svg" alt="Go Rumo - Timer Pomodoro minimalista" width="100%"/>
+</p>
 
-Um timer Pomodoro bonito e sem distrações, com gerenciamento de tarefas integrado. Design glassmorphism inspirado na estética moderna da Apple.
+<p align="center">
+  <strong>Simples. Focado. Gratuito.</strong>
+</p>
 
-**Simples. Focado. Gratuito.**
+<p align="center">
+  Um timer Pomodoro bonito e sem distrações, com gerenciamento de tarefas integrado.<br/>
+  Design glassmorphism inspirado na estética moderna da Apple.
+</p>
 
 ---
 
