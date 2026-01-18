@@ -1,6 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification, nativeImage } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { createTimer } from './timer.js'
 
 const getIconPath = () => {
   if (is.dev) {
@@ -12,6 +13,14 @@ const getIconPath = () => {
 let store = null
 let mainWindow = null
 let tray = null
+let timer = null
+
+const formatTime = (seconds) => {
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
+
 
 const initStore = async () => {
   const Store = (await import('electron-store')).default
@@ -70,11 +79,9 @@ const createWindow = () => {
 }
 
 const createTray = () => {
-  const iconPath = getIconPath()
-  console.log('Tray icon path:', iconPath)
-  const trayIcon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
-  console.log('Tray icon empty?', trayIcon.isEmpty())
-  tray = new Tray(trayIcon)
+  const emptyIcon = nativeImage.createEmpty()
+  tray = new Tray(emptyIcon)
+  tray.setTitle('25:00')
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -167,6 +174,39 @@ const setupIPC = () => {
     const rumos = store?.get('rumos', []) ?? []
     store?.set('rumos', [...rumos, rumo])
   })
+
+  ipcMain.handle('timer:get-state', () => timer?.getState())
+  ipcMain.handle('timer:toggle', () => timer?.toggle())
+  ipcMain.handle('timer:reset', () => timer?.reset())
+  ipcMain.handle('timer:switch-mode', (_, mode) => timer?.switchMode(mode))
+}
+
+const setupTimer = () => {
+  const iconPath = getIconPath()
+  const icon = nativeImage.createFromPath(iconPath)
+
+  timer = createTimer({
+    onTick: (state) => {
+      mainWindow?.webContents.send('timer:tick', state)
+      tray?.setTitle(formatTime(state.timeLeft))
+    },
+    onComplete: (state) => {
+      mainWindow?.webContents.send('timer:complete', state)
+
+      const messages = {
+        shortBreak: { title: 'Pomodoro', body: 'Hora da pausa curta!' },
+        longBreak: { title: 'Pomodoro', body: 'Hora da pausa longa! Você completou 4 ciclos.' },
+        focus: { title: 'Pomodoro', body: 'Hora de focar!' }
+      }
+      const msg = messages[state.mode]
+      new Notification({ title: msg.title, body: msg.body, icon }).show()
+
+      if (state.previousMode === 'focus') {
+        const rumos = store?.get('rumos', []) ?? []
+        store?.set('rumos', [...rumos, { id: crypto.randomUUID(), timestamp: Date.now() }])
+      }
+    }
+  })
 }
 
 app.whenReady().then(async () => {
@@ -181,6 +221,7 @@ app.whenReady().then(async () => {
   setupIPC()
   createWindow()
   createTray()
+  setupTimer()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

@@ -113,6 +113,19 @@ pnpm format       # Formata com Prettier
 
 ---
 
+## Changelog
+
+### v1.0.1
+
+- **Timer confiável** — Movido o timer para o processo principal do Electron, garantindo que nunca trave ou pause quando a janela estiver minimizada no macOS
+- **Menu bar otimizada** — Timer exibido apenas como texto na menu bar, ocupando menos espaço e sempre visível
+
+### v1.0.0
+
+- Lançamento inicial
+
+---
+
 ## Licença
 
 MIT License — use, modifique, compartilhe.
