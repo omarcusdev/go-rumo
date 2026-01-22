@@ -115,6 +115,10 @@ pnpm format       # Formata com Prettier
 
 ## Changelog
 
+### v1.0.2
+
+- **Botão de pular pausa** — Adicionado botão para pular pausas curtas e longas, voltando direto ao modo foco
+
 ### v1.0.1
 
 - **Timer confiável** — Movido o timer para o processo principal do Electron, garantindo que nunca trave ou pause quando a janela estiver minimizada no macOS

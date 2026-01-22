@@ -25,9 +25,12 @@ const Timer = ({
   progress,
   toggle,
   reset,
+  switchMode,
   cyclesInCurrentSet
 }) => {
   const glowRef = useMouseGlow()
+  const isBreak = mode === 'shortBreak' || mode === 'longBreak'
+  const showSkip = isBreak || (import.meta.env.DEV && mode === 'focus')
 
   useEffect(() => {
     const modeColor = MODE_COLORS[mode] || MODE_COLORS.focus
@@ -77,6 +80,14 @@ const Timer = ({
             </svg>
           )}
         </button>
+        {showSkip && (
+          <button className="control-btn" onClick={() => switchMode(isBreak ? 'focus' : 'shortBreak')} title="Pular">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M5 4L15 12L5 20V4Z" fill="currentColor" />
+              <rect x="17" y="4" width="3" height="16" fill="currentColor" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <CycleDots completed={cyclesInCurrentSet} />
