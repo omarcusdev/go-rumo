@@ -45,6 +45,14 @@ Baixe a versão mais recente para sua plataforma:
 
 > [Baixar última versão](https://github.com/omarcusdev/go-rumo/releases)
 
+### Problemas comuns (macOS)
+
+Se você receber a mensagem **"Go Rumo" está corrompido e não pode ser aberto**, execute o seguinte comando no terminal:
+
+```bash
+xattr -c /Applications/"Go Rumo.app"
+```
+
 ### Compilar do código fonte
 
 ```bash
