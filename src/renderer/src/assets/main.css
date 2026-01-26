@@ -26,7 +26,8 @@
   --radius-sm: 12px;
 }
 
-html, body {
+html,
+body {
   background: transparent !important;
 }
 
@@ -63,11 +64,9 @@ body {
   inset: -50px;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(
-    600px 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    var(--glow-color),
-    transparent 70%
-  );
+  background: radial-gradient(600px 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      var(--glow-color),
+      transparent 70%);
   filter: blur(15px);
   transition: background 0.15s ease-out;
 }
@@ -550,14 +549,6 @@ body {
   color: #51cf66;
 }
 
-.todo-text {
-  flex: 1;
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
 
 .delete-btn {
   display: flex;
@@ -680,6 +671,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -699,6 +691,7 @@ body {
     transform: translateY(10px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -984,6 +977,7 @@ body {
     opacity: 0;
     transform: translateX(-50%) translateY(4px);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -1000,4 +994,22 @@ body {
   font-size: 11px;
   color: var(--text-secondary);
   text-transform: lowercase;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+.todo-text.expanded {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: break-word;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import useMouseGlow from '../hooks/useMouseGlow'
 
 const SpinnerIcon = () => (
@@ -26,10 +26,22 @@ const StatusIndicator = ({ status, onClick }) => {
 }
 
 const TodoItem = ({ todo, isActive, onAdvanceStatus, onDelete }) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const toggleExpand = () => {
+    setIsExpanded((prev) => !prev)
+  }
+
   return (
     <div className={`todo-item ${todo.status} ${isActive ? 'active-task' : ''}`}>
       <StatusIndicator status={todo.status} onClick={() => onAdvanceStatus(todo.id)} />
-      <span className="todo-text">{todo.text}</span>
+      <span
+        className={`todo-text ${isExpanded ? 'expanded' : ''}`}
+        onClick={toggleExpand}
+        title={!isExpanded ? 'Clique para expandir' : ''}
+      >
+        {todo.text}
+      </span>
       <button className="delete-btn" onClick={() => onDelete(todo.id)} title="Deletar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M18 6L6 18M6 6l12 12" />
