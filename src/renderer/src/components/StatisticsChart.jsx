@@ -44,7 +44,13 @@ const formatTooltipDate = (index, period, currentDate) => {
   return formatMap[period]()
 }
 
-const StatisticsChart = ({ data, period, currentDate }) => {
+const StatisticsChart = ({
+  data,
+  period,
+  currentDate,
+  formatValue = (count) => `${count} ${count === 1 ? 'rumo' : 'rumos'}`,
+  formatTooltipLabel = (index) => formatTooltipDate(index, period, currentDate)
+}) => {
   const [hoveredBar, setHoveredBar] = useState(null)
   const containerRef = useRef(null)
 
@@ -113,12 +119,8 @@ const StatisticsChart = ({ data, period, currentDate }) => {
             top: hoveredBar.y - 60
           }}
         >
-          <span className="tooltip-count">
-            {hoveredBar.count} {hoveredBar.count === 1 ? 'rumo' : 'rumos'}
-          </span>
-          <span className="tooltip-date">
-            {formatTooltipDate(hoveredBar.index, period, currentDate)}
-          </span>
+          <span className="tooltip-count">{formatValue(hoveredBar.count)}</span>
+          <span className="tooltip-date">{formatTooltipLabel(hoveredBar.index)}</span>
         </div>
       )}
     </div>

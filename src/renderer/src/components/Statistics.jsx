@@ -1,6 +1,7 @@
 import useRumos from '../hooks/useRumos'
 import PeriodSelector from './PeriodSelector'
 import StatisticsChart from './StatisticsChart'
+import ActiveHours from './ActiveHours'
 
 const Statistics = () => {
   const { filteredRumos, period, setPeriod, currentDate, navigatePeriod, periodLabel, totalCount } =
@@ -8,6 +9,7 @@ const Statistics = () => {
 
   return (
     <div className="statistics-section">
+      <ActiveHours />
       <PeriodSelector period={period} onPeriodChange={setPeriod} />
       <div className="statistics-header">
         <button className="period-nav-btn" onClick={() => navigatePeriod(-1)} title="Anterior">

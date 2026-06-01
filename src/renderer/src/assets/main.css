@@ -1001,3 +1001,28 @@ body {
   color: var(--text-secondary);
   text-transform: lowercase;
 }
+
+.active-hours-section {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.active-hours-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.active-hours-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-transform: lowercase;
+}
+
+.active-hours-today {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mode-color);
+}
