@@ -13,3 +13,24 @@ export const composeTrayTitle = (activeSeconds, timerString) => {
   const active = formatActive(activeSeconds)
   return timerString ? `${active} · ${timerString}` : active
 }
+
+// Local calendar day key 'YYYY-MM-DD' (matches the day boundary used by the stats view).
+export const dayKey = (date) => {
+  const year = date.getFullYear()
+  const month = pad2(date.getMonth() + 1)
+  const day = pad2(date.getDate())
+  return `${year}-${month}-${day}`
+}
+
+// Source-of-truth series: oldest → newest, `days` entries ending at `today`,
+// missing days filled with `seconds: 0`. secondsByDay is a { 'YYYY-MM-DD': number } map.
+export const buildHistory = (secondsByDay, days, today) => {
+  const series = []
+  for (let offset = days - 1; offset >= 0; offset -= 1) {
+    const date = new Date(today)
+    date.setDate(today.getDate() - offset)
+    const key = dayKey(date)
+    series.push({ dayKey: key, seconds: secondsByDay[key] ?? 0 })
+  }
+  return series
+}
