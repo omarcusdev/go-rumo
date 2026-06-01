@@ -10,7 +10,13 @@ const api = {
   saveTodos: (todos) => ipcRenderer.send('save-todos', todos),
   getFocusedTodoId: () => ipcRenderer.invoke('get-focused-todo-id'),
   saveFocusedTodoId: (id) => ipcRenderer.send('save-focused-todo-id', id),
-  updateTrayTitle: (time) => ipcRenderer.send('update-tray-title', time),
+  getActiveToday: () => ipcRenderer.invoke('get-active-today'),
+  getActiveHistory: (days) => ipcRenderer.invoke('get-active-history', days),
+  onActiveUpdate: (callback) => {
+    const handler = (_, payload) => callback(payload)
+    ipcRenderer.on('active:update', handler)
+    return () => ipcRenderer.removeListener('active:update', handler)
+  },
   getWindowOpacity: () => ipcRenderer.invoke('get-window-opacity'),
   setWindowOpacity: (value) => ipcRenderer.send('set-window-opacity', value),
   getRumos: () => ipcRenderer.invoke('get-rumos'),

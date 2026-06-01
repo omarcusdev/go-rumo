@@ -1,7 +1,19 @@
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification, nativeImage } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  Menu,
+  Notification,
+  nativeImage,
+  powerMonitor
+} from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { createTimer } from './timer.js'
+import { createActivityTracker } from './activity.js'
+import { composeTrayTitle } from './activeTime.js'
 
 const getIconPath = () => {
   if (is.dev) {
@@ -14,6 +26,9 @@ let store = null
 let mainWindow = null
 let tray = null
 let timer = null
+let tracker = null
+let activeSecondsToday = 0
+let timerString = null
 
 const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60)
@@ -21,6 +36,14 @@ const formatTime = (seconds) => {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 }
 
+const renderTrayTitle = () => {
+  tray?.setTitle(composeTrayTitle(activeSecondsToday, timerString))
+}
+
+const syncTimerToTray = (state) => {
+  timerString = state?.isRunning ? formatTime(state.timeLeft) : null
+  renderTrayTitle()
+}
 
 const initStore = async () => {
   const Store = (await import('electron-store')).default
@@ -81,7 +104,7 @@ const createWindow = () => {
 const createTray = () => {
   const emptyIcon = nativeImage.createEmpty()
   tray = new Tray(emptyIcon)
-  tray.setTitle('25:00')
+  tray.setTitle(composeTrayTitle(activeSecondsToday, timerString))
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -154,10 +177,6 @@ const setupIPC = () => {
     store?.set('focusedTodoId', id)
   })
 
-  ipcMain.on('update-tray-title', (_, time) => {
-    tray?.setTitle(time)
-  })
-
   ipcMain.handle('get-window-opacity', () => {
     return store?.get('windowOpacity', 0.12) ?? 0.12
   })
@@ -176,9 +195,24 @@ const setupIPC = () => {
   })
 
   ipcMain.handle('timer:get-state', () => timer?.getState())
-  ipcMain.handle('timer:toggle', () => timer?.toggle())
-  ipcMain.handle('timer:reset', () => timer?.reset())
-  ipcMain.handle('timer:switch-mode', (_, mode) => timer?.switchMode(mode))
+  ipcMain.handle('timer:toggle', () => {
+    const state = timer?.toggle()
+    syncTimerToTray(state)
+    return state
+  })
+  ipcMain.handle('timer:reset', () => {
+    const state = timer?.reset()
+    syncTimerToTray(state)
+    return state
+  })
+  ipcMain.handle('timer:switch-mode', (_, mode) => {
+    const state = timer?.switchMode(mode)
+    syncTimerToTray(state)
+    return state
+  })
+
+  ipcMain.handle('get-active-today', () => tracker?.getToday() ?? 0)
+  ipcMain.handle('get-active-history', (_, days = 7) => tracker?.getHistory(days) ?? [])
 }
 
 const setupTimer = () => {
@@ -188,7 +222,8 @@ const setupTimer = () => {
   timer = createTimer({
     onTick: (state) => {
       mainWindow?.webContents.send('timer:tick', state)
-      tray?.setTitle(formatTime(state.timeLeft))
+      timerString = formatTime(state.timeLeft)
+      renderTrayTitle()
     },
     onComplete: (state) => {
       mainWindow?.webContents.send('timer:complete', state)
@@ -205,8 +240,24 @@ const setupTimer = () => {
         const rumos = store?.get('rumos', []) ?? []
         store?.set('rumos', [...rumos, { id: crypto.randomUUID(), timestamp: Date.now() }])
       }
+      timerString = null
+      renderTrayTitle()
     }
   })
+}
+
+const setupActivityTracker = () => {
+  tracker = createActivityTracker({
+    getIdleSeconds: () => powerMonitor.getSystemIdleTime(),
+    loadDays: () => store?.get('activeSeconds', {}) ?? {},
+    saveDays: (days) => store?.set('activeSeconds', days),
+    onUpdate: ({ today, dayKey }) => {
+      activeSecondsToday = today
+      renderTrayTitle()
+      mainWindow?.webContents.send('active:update', { today, dayKey })
+    }
+  })
+  tracker.start()
 }
 
 app.whenReady().then(async () => {
@@ -222,6 +273,11 @@ app.whenReady().then(async () => {
   createWindow()
   createTray()
   setupTimer()
+  setupActivityTracker()
+
+  app.on('before-quit', () => {
+    tracker?.stop()
+  })
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
